@@ -27,11 +27,13 @@ public class FlxBackgroundProcessIndicatorLine extends LinearLayout {
     private View viewIndicator;
     LinearLayout.LayoutParams params;
     int screenWidth = 0;
-    private Disposable disposable;
+    private Disposable forwardDisposable;
+    private Disposable backwardDisposable;
     private float indicatorWidth;
     private float indicatorHeight;
     private int indicatorColor;
-    private int indicatorSpeed ;
+    private int indicatorSpeed;
+    private boolean isRunning = false;
 
     public FlxBackgroundProcessIndicatorLine(Context context) {
         super(context);
@@ -92,16 +94,21 @@ public class FlxBackgroundProcessIndicatorLine extends LinearLayout {
 
     public void start() {
         setVisibility(View.VISIBLE);
-        moveForward();
+        if (!isRunning) {
+            isRunning = true;
+            moveForward();
+        }
     }
 
     public void destroy() {
         setVisibility(View.GONE);
-        if (disposable != null) disposable.dispose();
+        isRunning = false;
+        if (forwardDisposable != null) forwardDisposable.dispose();
+        if (backwardDisposable != null) backwardDisposable.dispose();
     }
 
     private void moveForward() {
-        disposable = Observable.intervalRange(0, screenWidth-((int)indicatorWidth), 0, indicatorSpeed, TimeUnit.MILLISECONDS, Schedulers.io())
+        forwardDisposable = Observable.intervalRange(0, screenWidth - ((int) indicatorWidth), 0, indicatorSpeed, TimeUnit.MILLISECONDS, Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(next -> {
                             if (next == null) return;
@@ -159,7 +166,7 @@ public class FlxBackgroundProcessIndicatorLine extends LinearLayout {
                     .subscribe(new Observer<Long>() {
                         @Override
                         public void onSubscribe(Disposable d) {
-                            disposable = d;
+                            backwardDisposable = d;
                         }
 
                         @Override
