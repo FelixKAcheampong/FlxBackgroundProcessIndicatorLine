@@ -1,3 +1,4 @@
+/*
 package com.felinkotech.flxbackgroundprocessindicatorline;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,4 +28,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         indicatorLine.destroy();
     }
-}
+}*/
