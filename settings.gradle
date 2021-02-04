@@ -1,0 +1,3 @@
+include ':flxbgprocessindicatorline'
+include ':app'
+rootProject.name = "FlxBackgroundProcessIndicatorLine"
