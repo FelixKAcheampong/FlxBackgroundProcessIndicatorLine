@@ -30,10 +30,10 @@ compileOptions {
 <com.felinkotech.flxbgprocessindicatorline.FlxBackgroundProcessIndicatorLine
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:indicator_color="#ff0000"
+        app:indicator_color="#000000"
         app:indicator_speed="1"
         app:indicator_width="30dp"
-        app:indicator_height="3dp"
+        app:indicator_height="2dp"
         android:id="@+id/indicator" />
 ```
 
